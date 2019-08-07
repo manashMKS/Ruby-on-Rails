@@ -1,0 +1,138 @@
+<style type="text/css">
+.pagination {
+  display: inline-block;
+}
+	.pagination a {
+  border-radius: 5px;
+}
+
+.pagination a.active {
+  border-radius: 5px;
+}
+.next_page{
+  border-radius: 5px !important;
+
+}
+   .my-popup .modal-content {
+      background: #1eaace;
+color: white;
+}
+</style>
+
+
+
+
+
+
+    <h1>Profile</h1>
+    <%= link_to '<em class="btn fa fa-plus-circle" aria-hidden="true"></em><span style="font-size:15px">Add New User</style>'.html_safe,  create_user_admins_admins_path, class:"btn btn-sm btn-primary" ,title: "Add User", style: "float:right;margin-top:-50px" %>
+<p class="box box-primary"></p>
+
+
+
+ 
+
+<div class="card-body table-responsive p-0" , id ="example2_paginate">
+                <table class="table table-hover">
+                  <tr style="background-color: #DDD7D6">
+                    <th>Name</th>
+					<th>Email</th>
+				<!-- 	<th>Profile</th> -->
+					<th>Phone</th>
+					<th>Role</th>
+					<th >Action</th>
+					<th>Change Role</th>
+					<th>Save</th>
+
+					
+                  </tr>
+                  <tr>
+                    <%#@users = [] unless @users.present?%>
+					<% @users.each do |user|%>
+					<% unless user.eql?(nil) %>
+					<td><%= user&.name %></td>
+					<td><%= user&.email%></td>
+					<td><%= user&.phone%></td>
+					<td><%= user&.user_role&.name%></td>
+					
+
+					<td><%= link_to '<em class="fa fa-eye" aria-hidden="true"></em>'.html_safe,  user_view_admins_admins_path(id: CGI.escape(user.id.to_s)), class:"btn btn-success"  ,title: "show" %> 
+
+
+					<%if user.status.present?  %>
+
+					
+					<%= link_to '<em class="fa  fa-unlock" aria-hidden="true"></em>'.html_safe,  block_admins_admins_path(id: user.id), class:"btn btn-success" ,title: "Unblock" %>
+					
+					<% else %>
+
+					<%= link_to '<em class="fa fa-ban" aria-hidden="true"></em>'.html_safe,  block_admins_admins_path(id: user.id), class:"btn btn-warning" ,title: "Block" %>
+					
+		
+					
+					 <%end%>	
+
+
+					<%= link_to '<em class="fa fa-trash" aria-hidden="true"></em>'.html_safe,  user_destroy_admins_admins_path(id: user.id), class:"btn btn-danger" ,title: "Delete" %></td>
+
+
+
+				
+
+
+					 <%=  form_for :session,html: { onsubmit: "return myFunction(this);" }, url: user_role_update_admins_admins_path(id: user.id) ,method: :post, local: true do |b| %>
+					<td><%= b.collection_select :user_role_id, UserRole.all, :id, :name,   :prompt => 'Select'  %></td>
+					
+					<td><%= b.submit "Save" , class:"btn btn-primary"%></td>
+
+					<%end%>
+<%#= select_tag 'user_role_id', options_for_select(UserRole.all.collect{ |c| [c.name,  c.id]}) %>
+
+					<!-- <td><%= user.user_role_id %></td> -->
+
+					</tr>	
+					<%end%>
+                
+
+
+<%end%>
+
+
+</table>
+<%= will_paginate @users %>
+
+</div>
+
+ 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.min.js"></script>
+
+<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+
+<script src="https://github.com/makeusabrew/bootbox/releases/download/v4.4.0/bootbox.min.js"></script>
+<script type="text/javascript">
+
+ function myFunction(input){
+ 	// debugger;
+ var menu_id = input.elements[2].value;
+
+   
+     if(menu_id == "")
+     {
+		bootbox.alert({
+     title: 'Alert!',
+     message: "Please select Role first",
+     className: "my-popup"
+  });
+		return false;
+	}
+}
+
+	
+</script>
+

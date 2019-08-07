@@ -1,0 +1,19 @@
+---
+development:
+  cloud_name: manash
+  api_key: '437164588546249'
+  api_secret: OvXhEaH90wUCQJHjMnh30d1s9JQ
+  enhance_image_tag: true
+  static_file_support: false
+production:
+  cloud_name: manash
+  api_key: '437164588546249'
+  api_secret: OvXhEaH90wUCQJHjMnh30d1s9JQ
+  enhance_image_tag: true
+  static_file_support: true
+test:
+  cloud_name: manash
+  api_key: '437164588546249'
+  api_secret: OvXhEaH90wUCQJHjMnh30d1s9JQ
+  enhance_image_tag: true
+  static_file_support: false

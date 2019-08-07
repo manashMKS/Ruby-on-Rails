@@ -1,0 +1,127 @@
+<h1>Create Role</h1>
+<p class="box box-primary"></p>
+
+<%=  form_for :session, url: user_role_create_admins_admins_path ,method: :post, local: true do |b| %>
+	
+    <%= b.label :Role %>
+
+	<%=b.text_field :name , required:true%>
+				
+ <%#= b.label :Menu %>
+<%#=b.text_field :menu %>
+
+	<td><%= b.submit "Create" , class:"btn btn-primary"%></td>
+
+
+	<%end%>
+
+<!-- <h1>Create Actions for each menu</h1>
+<p class="box box-primary"></p>
+
+<%#=  form_for :session,html: { onsubmit: "return myFunction(this);" }, url: user_permission_create_admins_admins_path ,method: :post, local: true do |b| %>
+
+    <%#= b.label :Menu %>
+
+<%#= b.collection_select :menu_id, Menu.all.order('created_at ASC').first(3), :id, :menu, {:include_blank => '-select-'}%>
+
+    <%#= b.label :actions %>
+	<%#=b.text_field :action , required:true%>
+
+<td><%#= b.submit "Create" , class:"btn btn-primary"%></td>
+	<%#end%> -->
+
+
+<table class="table table-hover">
+                  <tr style="background-color: #DDD7D6">
+                    <th>Roles</th>
+                    <th></th>
+
+                    <th>Action</th>
+
+                	</tr>
+					<% UserRole.all.each do |role|%>
+                  <tr>
+					<td><%= role.name %></td>
+					<td></td>
+
+					<td><%= link_to '<em class="fa fa-trash" aria-hidden="true"></em>'.html_safe,  role_destroy_admins_admins_path(id: role.id), class:"btn btn-danger"  ,title: "Delete" %> </td>
+					</tr>
+					
+					<%end%>
+</table>
+
+<!-- 
+<tr style="background-color: #DDD7D6">
+                   
+                    <th>Menus</th>
+                    <th>Actions</th>
+                    <th></th>
+
+</tr>
+					<%# Menu.all.order('created_at ASC').first(3).each do |menu|%>
+					<tr>
+					<td><%#= menu.menu%></td>
+
+					<td><%#= menu.actions.pluck(:action).join(', ') %></td>
+					<td><%#= link_to '<em class="fa fa-trash" aria-hidden="true"></em>'.html_safe,  	menu_destroy_admins_admins_path(id: menu.id), class:"btn btn-danger"  ,title: "Delete" %> </td>
+
+					
+					</tr>
+					<%#end%>
+
+
+
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.min.js"></script>
+
+<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
+
+<script type="text/javascript">
+
+ function myFunction(input){
+ 	debugger;
+ const menu_id = input.elements[2].value;
+ var action = input.elements[3].value
+ menus = {menus: menu_id, actions: action}
+
+   
+     if(menu_id == "")
+     {
+		alert("plz select the menu the first");
+		return false;
+	}
+
+else 
+{
+    	debugger;
+    $.ajax({
+  url: '/admins/admins/check_menus_action',
+  method: 'POST',
+  data: menus,
+    success: function(response){
+    if(response && response.message =='ERROR'){
+        alert(" "+response.action+" for "+response.value+" already exists");
+    	 return; 
+
+    }
+    // else
+    // {
+    // 	return true;
+
+    // }
+
+
+}
+});
+        return false;
+
+  }
+  
+}
+	
+</script>
+

@@ -1,0 +1,65 @@
+<%= flash[:notice] %>
+
+<%= form_with scope: :user, url: users_user_path(id: @user.id),method: :patch,local: true  do |form| %>
+
+<% if @user.errors.any? %>
+  <div id="error_explanation">
+    
+      The form contains <%= pluralize(@user.errors.count, "error") %>.
+    </div>
+    <ul>
+    <% @user.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+    </ul>
+  </div>
+<% end %>
+
+
+
+ <p>
+    <%= form.label :Name %><br>
+    <%= form.text_field :name  %>
+  </p>
+ 
+ <p>
+    <%= form.label :Email %><br>
+    <%= form.email_field  :email %>
+ 
+  </p>
+ 
+<p>
+    <%= form.label :Phone %><br>
+    <%= form.text_field  :phone %>
+ 
+  </p>
+<label>Profile</label>
+<p>
+ <%= form.file_field :avatar ,onchange: "readURL(this);"%>
+ <div>
+ <img id="blah" />
+</div>
+</p>
+
+  <p>
+    <%= form.submit "Update"%>
+  </p>
+
+  <%end%>
+  <script type="text/javascript">
+
+function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('#blah')
+                    .attr('src', e.target.result)
+                    .width(150)
+                    .height(150);
+            };
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+</script> 

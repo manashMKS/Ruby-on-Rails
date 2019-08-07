@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  
+    <title>User </title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+  <%= cloudinary_js_config %>
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+   <%= javascript_include_tag 'ckeditor/ckeditor.js' %>
+  </head>
+
+
+<script type="text/javascript">$(document).ready(function() {
+    if ($('textarea').length > 0) {
+        var data = $('textarea');
+        $.each(data, function(i) {
+            CKEDITOR.replace(data[i].id);
+        });
+    }
+});</script>
+  <body>
+    <%= yield %>
+  </body>
+</html>

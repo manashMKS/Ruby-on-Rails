@@ -1,0 +1,921 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "API V1",
+    "version": "v1"
+  },
+  "paths": {
+    "/api/v1/sessions": {
+      "post": {
+        "summary": "Login for Admin",
+        "tags": [
+          "Admin"
+        ],
+        "consumes": [
+          "application/json",
+          "application/xml"
+        ],
+        "parameters": [
+          {
+            "name": "session",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "email": {
+                  "type": "string"
+                },
+                "password": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "email",
+                "password"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Admin login successfully"
+          },
+          "422": {
+            "description": "invalid request"
+          }
+        }
+      }
+    },
+    "/api/v1/sessions/otp_admin": {
+      "post": {
+        "summary": "for match OTP",
+        "tags": [
+          "Admin"
+        ],
+        "parameters": [
+          {
+            "name": "session",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "email": {
+                  "type": "string"
+                },
+                "onetimepassword": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "otp",
+                "email"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "OTP matched"
+          },
+          "422": {
+            "description": "OTP not matched"
+          }
+        }
+      }
+    },
+    "/api/v1/sessions/show_all_user": {
+      "post": {
+        "summary": "for show users",
+        "tags": [
+          "Admin"
+        ],
+        "consumes": [
+          "application/json",
+          "application/xml"
+        ],
+        "parameters": [
+          {
+            "name": "auth",
+            "in": "header",
+            "schema": {
+              "type": "integer",
+              "properties": {
+                "token_id": {
+                  "type": "integer"
+                }
+              },
+              "required": true
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Fetch all Users"
+          }
+        }
+      }
+    },
+    "/api/v1/sessions/destroy": {
+      "delete": {
+        "summary": "for admin logout",
+        "tags": [
+          "Admin"
+        ],
+        "consumes": [
+          "application/json",
+          "application/xml"
+        ],
+        "parameters": [
+          {
+            "name": "auth",
+            "in": "header",
+            "schema": {
+              "type": "integer",
+              "properties": {
+                "token_id": {
+                  "type": "integer"
+                }
+              },
+              "required": true
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "admin logout successfully"
+          }
+        }
+      }
+    },
+    "/api/v1/sessions/create_users": {
+      "post": {
+        "summary": "for create user",
+        "tags": [
+          "Admin"
+        ],
+        "consumes": [
+          "application/json",
+          "application/xml"
+        ],
+        "parameters": [
+          {
+            "name": "auth",
+            "in": "header",
+            "schema": {
+              "type": "integer",
+              "properties": {
+                "token_id": {
+                  "type": "integer"
+                }
+              },
+              "required": true
+            }
+          },
+          {
+            "name": "user",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "email": {
+                  "type": "string"
+                },
+                "phone": {
+                  "type": "string"
+                },
+                "password": {
+                  "type": "string"
+                },
+                "password_confirmation": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "name",
+                "email",
+                "phone",
+                "password"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "User created successfully"
+          },
+          "422": {
+            "description": "not created"
+          }
+        }
+      }
+    },
+    "/api/v1/sessions/user_view": {
+      "post": {
+        "summary": "to view user profile",
+        "tags": [
+          "Admin"
+        ],
+        "consumes": [
+          "application/json",
+          "application/xml"
+        ],
+        "parameters": [
+          {
+            "name": "auth",
+            "in": "header",
+            "schema": {
+              "type": "integer",
+              "properties": {
+                "token_id": {
+                  "type": "integer"
+                }
+              },
+              "required": true
+            }
+          },
+          {
+            "name": "user profile",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "email": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "email"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "User created successfully"
+          },
+          "422": {
+            "description": "not created"
+          }
+        }
+      }
+    },
+    "/api/v1/sessions/user_destroy": {
+      "delete": {
+        "summary": "for delete user",
+        "tags": [
+          "Admin"
+        ],
+        "consumes": [
+          "application/json",
+          "application/xml"
+        ],
+        "parameters": [
+          {
+            "name": "auth",
+            "in": "header",
+            "schema": {
+              "type": "integer",
+              "properties": {
+                "token_id": {
+                  "type": "integer"
+                }
+              },
+              "required": true
+            }
+          },
+          {
+            "name": "user",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "email": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "email"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "User created successfully"
+          },
+          "422": {
+            "description": "not created"
+          }
+        }
+      }
+    },
+    "/api/v1/sessions/block": {
+      "post": {
+        "summary": "for block and unblock user",
+        "consumes": [
+          "application/json",
+          "application/xml"
+        ],
+        "tags": [
+          "Admin"
+        ],
+        "parameters": [
+          {
+            "name": "auth",
+            "in": "header",
+            "schema": {
+              "type": "integer",
+              "properties": {
+                "token_id": {
+                  "type": "integer"
+                }
+              },
+              "required": true
+            }
+          },
+          {
+            "name": "user",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "email": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "email"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "User blocked successfully"
+          },
+          "422": {
+            "description": "not blocked"
+          }
+        }
+      }
+    },
+    "/api/v1/sessions/user_role_create": {
+      "post": {
+        "summary": "for create a role",
+        "consumes": [
+          "application/json",
+          "application/xml"
+        ],
+        "tags": [
+          "Admin"
+        ],
+        "parameters": [
+          {
+            "name": "auth",
+            "in": "header",
+            "schema": {
+              "type": "string",
+              "properties": {
+                "token_id": {
+                  "type": "string"
+                }
+              },
+              "required": true
+            }
+          },
+          {
+            "name": "user_role",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "name"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "role created successfully"
+          },
+          "422": {
+            "description": "role not created"
+          }
+        }
+      }
+    },
+    "/api/v1/sessions/user_role_update": {
+      "post": {
+        "summary": "for update a user role",
+        "consumes": [
+          "application/json",
+          "application/xml"
+        ],
+        "tags": [
+          "Admin"
+        ],
+        "parameters": [
+          {
+            "name": "auth",
+            "in": "header",
+            "schema": {
+              "type": "integer",
+              "properties": {
+                "token_id": {
+                  "type": "integer"
+                }
+              },
+              "required": true
+            }
+          },
+          {
+            "name": "user_role",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "email": {
+                  "type": "string"
+                },
+                "name": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "name"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "role updated successfully"
+          },
+          "422": {
+            "description": "role not updated"
+          }
+        }
+      }
+    },
+    "/api/v1/sessions/show_role": {
+      "post": {
+        "summary": "for display all roles",
+        "consumes": [
+          "application/json",
+          "application/xml"
+        ],
+        "tags": [
+          "Admin"
+        ],
+        "parameters": [
+          {
+            "name": "auth",
+            "in": "header",
+            "schema": {
+              "type": "integer",
+              "properties": {
+                "token_id": {
+                  "type": "integer"
+                }
+              },
+              "required": true
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "role updated successfully"
+          },
+          "422": {
+            "description": "role not updated"
+          }
+        }
+      }
+    },
+    "/api/v1/sessions/role_destroy": {
+      "delete": {
+        "summary": "for destroy role",
+        "consumes": [
+          "application/json",
+          "application/xml"
+        ],
+        "tags": [
+          "Admin"
+        ],
+        "parameters": [
+          {
+            "name": "auth",
+            "in": "header",
+            "schema": {
+              "type": "integer",
+              "properties": {
+                "token_id": {
+                  "type": "integer"
+                }
+              },
+              "required": true
+            }
+          },
+          {
+            "name": "user_role",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "name"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "role deleted successfully"
+          },
+          "422": {
+            "description": "role not deleted"
+          }
+        }
+      }
+    },
+    "/api/v1/sessions/content_create": {
+      "post": {
+        "summary": "for create a content",
+        "consumes": [
+          "application/json",
+          "application/xml"
+        ],
+        "tags": [
+          "Admin"
+        ],
+        "parameters": [
+          {
+            "name": "auth",
+            "in": "header",
+            "schema": {
+              "type": "string",
+              "properties": {
+                "token_id": {
+                  "type": "string"
+                }
+              },
+              "required": true
+            }
+          },
+          {
+            "name": "user_role",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "title": {
+                  "type": "string"
+                },
+                "latest_content": {
+                  "type": "string"
+                },
+                "start_date": {
+                  "type": "datetime"
+                },
+                "end_date": {
+                  "type": "datetime"
+                }
+              },
+              "required": [
+                "name"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "role created successfully"
+          },
+          "422": {
+            "description": "role not created"
+          }
+        }
+      }
+    },
+    "/api/v1/sessions/content_destroy": {
+      "delete": {
+        "summary": "for destroy content",
+        "consumes": [
+          "application/json",
+          "application/xml"
+        ],
+        "tags": [
+          "Admin"
+        ],
+        "parameters": [
+          {
+            "name": "auth",
+            "in": "header",
+            "schema": {
+              "type": "integer",
+              "properties": {
+                "token_id": {
+                  "type": "integer"
+                }
+              },
+              "required": true
+            }
+          },
+          {
+            "name": "content",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "title": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "title"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "content deleted successfully"
+          },
+          "422": {
+            "description": "content not deleted"
+          }
+        }
+      }
+    },
+    "/api/v1/sessions/show_content": {
+      "post": {
+        "summary": "for display all content",
+        "consumes": [
+          "application/json",
+          "application/xml"
+        ],
+        "tags": [
+          "Admin"
+        ],
+        "parameters": [
+          {
+            "name": "auth",
+            "in": "header",
+            "schema": {
+              "type": "integer",
+              "properties": {
+                "token_id": {
+                  "type": "integer"
+                }
+              },
+              "required": true
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "role updated successfully"
+          },
+          "422": {
+            "description": "role not updated"
+          }
+        }
+      }
+    },
+    "/api/v1/sessions/create_action": {
+      "post": {
+        "summary": "for create actions according to menu",
+        "consumes": [
+          "application/json",
+          "application/xml"
+        ],
+        "tags": [
+          "Admin"
+        ],
+        "parameters": [
+          {
+            "name": "auth",
+            "in": "header",
+            "schema": {
+              "type": "integer",
+              "properties": {
+                "token_id": {
+                  "type": "integer"
+                }
+              },
+              "required": true
+            }
+          },
+          {
+            "name": "action",
+            "in": "body",
+            "schema": {
+              "type": "string",
+              "properties": {
+                "menu": {
+                  "type": "string"
+                },
+                "action": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "action created successfully"
+          },
+          "422": {
+            "description": "not created"
+          }
+        }
+      }
+    },
+    "/api/v1/sessions/show_menu": {
+      "post": {
+        "summary": "for display menu",
+        "consumes": [
+          "application/json",
+          "application/xml"
+        ],
+        "tags": [
+          "Admin"
+        ],
+        "parameters": [
+          {
+            "name": "auth",
+            "in": "header",
+            "schema": {
+              "type": "integer",
+              "properties": {
+                "token_id": {
+                  "type": "integer"
+                }
+              },
+              "required": true
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "displayed successfully"
+          },
+          "422": {
+            "description": "no menu found"
+          }
+        }
+      }
+    },
+    "/api/v1/sessions/permission_management": {
+      "post": {
+        "summary": "for Permission management",
+        "consumes": [
+          "application/json",
+          "application/xml"
+        ],
+        "tags": [
+          "Admin"
+        ],
+        "parameters": [
+          {
+            "name": "auth",
+            "in": "header",
+            "schema": {
+              "type": "integer",
+              "properties": {
+                "token_id": {
+                  "type": "integer"
+                }
+              },
+              "required": true
+            }
+          },
+          {
+            "name": "action",
+            "in": "body",
+            "schema": {
+              "type": "string",
+              "properties": {
+                "role": {
+                  "type": "string"
+                },
+                "menu": {
+                  "type": "string"
+                },
+                "action": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "permission granted successfully"
+          },
+          "422": {
+            "description": "not created"
+          }
+        }
+      }
+    },
+    "/api/v1/sessions/show_all_permission": {
+      "post": {
+        "summary": "for display all permission",
+        "consumes": [
+          "application/json",
+          "application/xml"
+        ],
+        "tags": [
+          "Admin"
+        ],
+        "parameters": [
+          {
+            "name": "auth",
+            "in": "header",
+            "schema": {
+              "type": "integer",
+              "properties": {
+                "token_id": {
+                  "type": "integer"
+                }
+              },
+              "required": true
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "displayed successfully"
+          },
+          "422": {
+            "description": "no permission found"
+          }
+        }
+      }
+    },
+    "/api/v1/sessions/permission_destroy": {
+      "delete": {
+        "summary": "for delete permission",
+        "consumes": [
+          "application/json",
+          "application/xml"
+        ],
+        "tags": [
+          "Admin"
+        ],
+        "parameters": [
+          {
+            "name": "auth",
+            "in": "header",
+            "schema": {
+              "type": "integer",
+              "properties": {
+                "token_id": {
+                  "type": "integer"
+                }
+              },
+              "required": true
+            }
+          },
+          {
+            "name": "permission",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "permission_id": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "id"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "deleted successfully"
+          },
+          "422": {
+            "description": "no permission found"
+          }
+        }
+      }
+    }
+  }
+}

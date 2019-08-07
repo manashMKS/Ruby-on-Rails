@@ -1,0 +1,68 @@
+ <style type="text/css">
+   .my-popup .modal-content {
+      background: #1eaace;
+color: white;
+}
+ </style>
+
+
+
+
+<h1>Static Content Management</h1>
+
+<p class="box box-primary"></p>
+
+
+
+<script src="https://cdn.ckeditor.com/4.12.1/standard/ckeditor.js"></script>
+
+	<%=  form_for :session, html: { onsubmit: "return myFunction(this);" },url: content_create_admins_admins_path ,method: :post, local: true do |b| %>
+   <%= b.label :Title %> 
+   <%= b.text_field :title,required:true %><br><br> 
+  
+
+   <%= b.label :Content %> 
+<%= b.text_area :latest_content, :class => 'ckeditor' %><br>
+   <%= b.label :"Start Date" %> 
+   &nbsp;
+   <%= b.date_field :start_date , required:true%>
+  <%= b.label :"End Date"  , style: "margin: 0 0 0 400px;"%>
+	<%= b.date_field :end_date , style: "margin: 0 0 0 20px;",required:true %><br>
+
+	<%= b.submit :save ,class:"btn btn-success",  style: "margin: 0px 0px -200px 500px;" %>
+<%= link_to '<em class="fa  fa-mail-reply-all" aria-hidden="true"></em>'.html_safe,  show_content_admins_admins_path, class:"btn btn-primary"  ,title: "Back"  ,  style: "margin: 0px 0px -200px 50px;" %>
+	<%end%>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.min.js"></script>
+
+<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+
+<script src="https://github.com/makeusabrew/bootbox/releases/download/v4.4.0/bootbox.min.js"></script>
+<script type="text/javascript">
+
+ function myFunction(input){
+  debugger;
+ var ckeditor = input.elements[3].value;
+
+   
+     if(ckeditor == "")
+     {
+    bootbox.alert({
+     title: 'Alert!',
+     message: "Please fill the content",
+     className: "my-popup"
+  });
+    return false;
+  }
+}
+
+  
+</script>
+

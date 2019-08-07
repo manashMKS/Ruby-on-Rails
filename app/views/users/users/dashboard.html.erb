@@ -1,0 +1,96 @@
+
+
+ <h1>Dashboard</h1>
+<p class="box box-primary"></p>
+
+
+
+
+            <!-- Profile Image -->
+            <div class="card card-primary card-outline">
+              <div class="card-body box-profile">
+                <div class="text-center">
+                  <img class="profile-user-img img-fluid img-circle"
+                       src="<%=@user&.avatar&.url%>"
+                       alt="User profile picture">
+                </div>
+
+                <h3 class="profile-username text-center"><%=@user&.name%></h3>
+
+                <p class="text-muted text-center">You are acting as <b><%=@user&.user_role&.name%></b></p>
+
+                
+              </div>
+              <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+
+            <!-- About Me Box -->
+            <div class="card card-primary">
+              <div class="card-header">
+                <h3 class="card-title">About Me</h3>
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body">
+                <strong><i class="fa fa-book"></i> Education</strong>
+
+                <p class="text-muted">
+                  B.S. in Computer Science from the University of Tennessee at Knoxville
+                </p>
+
+                <hr>
+
+                <strong><i class="fas fa fa-map-marker"></i> Location</strong>
+
+                <p class="text-muted">Malibu, California</p>
+
+                <hr>
+
+                <strong><i class="fa fa-pencil"></i> Skills</strong>
+
+                 <p class="text-muted">
+                  <span class="btn btn-primary">Ruby on Rails</span>
+                  <span class="btn btn-success">Coding</span>
+                  <span class="btn btn-danger">Javascript</span>
+                  
+                </p>
+
+                <hr>
+
+                <strong><i class="fa fa-file-text-o"></i> Notes</strong>
+
+                <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam fermentum enim neque.</p>
+              </div>
+                 <h1>Contents</h1>
+
+
+<table class="table table-hover">
+                  <tr style="background-color: #DDD7D6">
+                    <th>Title</th>
+					<th>Content</th>
+			
+					
+                  </tr>
+                  <tr>
+                    <%@contentss = [] unless @contentss.present?%>
+
+					<% @contentss.each do |content|%>
+					<td><%= content.title %></td>
+					<td><%= content.latest_content.html_safe%></td>
+		
+					</tr>
+                
+
+
+<%end%>
+</table>
+              <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+          </div>
+
+
+
+
+
+        <!-- /.row -->

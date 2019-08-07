@@ -1,0 +1,19 @@
+<h1>Admin Login</h1>
+
+
+<%=  form_for :session, url: otp_admin_admins_sessions_path(id: @admin.id)	,method: :post, local: true do |b| %>
+ <%#= hidden_field_tag :email, @admin.email %>
+Your otp is sent to your registered mail <b><%= @admin.email%></b>	
+<p>
+    <%= b.label :OTP %><br>
+    <%= b.text_field :otp %>
+  </p>
+ 
+ 
+  
+
+  <p>
+    <%= b.submit :Submit %>
+  </p>
+
+  <% end %>

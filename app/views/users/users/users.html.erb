@@ -1,0 +1,73 @@
+
+    <h1>Profile</h1>
+    <%= link_to '<em class="btn fa fa-plus-circle" aria-hidden="true"></em><span style="font-size:15px">Add New User</style>'.html_safe,  create_user_users_users_path, class:"btn btn-sm btn-primary" ,title: "Add User", style: "float:right;margin-top:-50px" %>
+<p class="box box-primary"></p>
+
+
+
+ 
+
+<div class="card-body table-responsive p-0">
+                <table class="table table-hover">
+                  <tr style="background-color: #DDD7D6">
+                    <th>Name</th>
+					<th>Email</th>
+				<!-- 	<th>Profile</th> -->
+					<th>Phone</th>
+					<th>Role</th>
+					<th >Action</th>
+					
+                  </tr>
+                    <%#@users = [] unless @users.present?%>
+					<% @users.each do |user| %>
+					<% unless user.eql?(nil) %>
+                  <tr>
+					<td><%= user&.name %></td>
+					<td><%= user&.email%></td>
+					<td><%= user&.phone%></td>
+					<td><%= user&.user_role&.name%></td>
+					
+
+					<td>
+      						<%# binding.pry %>
+         				<% if return_action_id("View") %>
+						<%= link_to '<em class="fa fa-eye" aria-hidden="true"></em>'.html_safe,  user_view_users_users_path(id:user.id), class: "btn btn-success"  ,title: "show" %>
+  						
+         				
+  						<% end %>
+
+         				<% if return_action_id("Block") %>
+						
+
+						<%if user.status.present?  %>
+
+					
+					<%= link_to '<em class="fa  fa-unlock" aria-hidden="true"></em>'.html_safe,  block_users_users_path(id: user.id), class:"btn btn-success" ,title: "Unblock" %>
+					
+					<% else %>
+
+					<%= link_to '<em class="fa fa-ban" aria-hidden="true"></em>'.html_safe,  block_users_users_path(id: user.id), class:"btn btn-warning" ,title: "Block" %>
+					
+		
+					
+					 <%end%>	
+  						<% end %>
+
+          				<% if return_action_id("Delete") %>
+
+						<%= link_to '<em class="fa fa-trash" aria-hidden="true"></em>'.html_safe,  user_destroy_users_users_path(id: user.id), class: "btn btn-danger" ,title: "Delete" %>
+     					<%end%>
+     				</td>
+
+					</tr>	
+					<%end%>
+                
+
+
+<%end%>
+
+
+</table>
+<%= will_paginate @users %>
+
+</div>

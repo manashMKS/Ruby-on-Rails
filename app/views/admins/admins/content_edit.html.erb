@@ -1,0 +1,32 @@
+<h1>Static Content Management</h1>
+
+<p class="box box-primary"></p>
+
+
+
+<script src="https://cdn.ckeditor.com/4.12.1/standard/ckeditor.js"></script>
+
+	<%=  form_for :content, url: content_update_admins_admins_path(id: @content.id) ,method: :post, local: true do |b| %>
+   <%= b.label :Title %> 
+   <%= b.text_field :title , value: @content.title%><br><br> 
+  
+
+   <%= b.label :Content %> 
+<%= b.text_area :latest_content, :class => 'ckeditor' , value: @content.latest_content%><br>
+   <%= b.label :"Start Date" %> 
+   &nbsp;
+
+  <%= b.date_field :start_date ,value: @content&.start_date && l(@content&.start_date&.to_date) %>
+
+  <%= b.label :"End Date"  , style: "margin: 0 0 0 400px;"%>
+  
+  <%= b.date_field :end_date , value: @content&.end_date && l(@content&.end_date&.to_date ) , style: "margin: 0 0 0 20px;" %><br>
+
+
+	<%= b.submit :save ,class:"btn btn-success",  style: "margin: 0px 0px -200px 500px;" %>
+<%= link_to '<em class="fa  fa-mail-reply-all" aria-hidden="true"></em>'.html_safe,  show_content_admins_admins_path, class:"btn btn-primary"  ,title: "Back"  ,  style: "margin: 0px 0px -200px 50px;" %>
+	<%end%>
+
+
+
+    

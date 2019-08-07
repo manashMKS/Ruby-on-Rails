@@ -1,0 +1,91 @@
+
+<h1>Add User</h1>
+
+<%= flash[:notice] %>
+
+<%= form_with scope: :user, url: create_users_users_users_path,:html=>{id: "first"},local: true  do |form| %>
+
+<% if @user.errors.any? %>
+  <div id="error_explanation">
+    
+      The form contains <%= pluralize(@user.errors.count, "error") %>.
+    </div>
+    <ul>
+    <% @user.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+    </ul>
+  </div>
+<% end %>
+
+
+
+ <p>
+    <%= form.label :Name %>
+    <%= form.text_field :name ,placeholder: 'Your name here' %>
+  </p>
+ 
+ <p>
+    <%= form.label :Email %>
+    <%= form.email_field  :email ,placeholder: 'Your email here'%>
+ 
+  </p>
+ 
+<p>
+    <%= form.label :Phone %>
+    <%= form.text_field  :phone , placeholder: 'Your phone here'%>
+ 
+  </p>
+ 
+
+
+<p>
+   <%= form.label :password %>
+<%= form.password_field :password %>
+</p>
+
+<p>
+   <%= form.label :Confirm_password %>
+<%= form.password_field :password_confirmation %>
+</p>
+
+
+<p>
+   <%= form.label :Role %>
+
+  <%= form.collection_select :user_role_id, UserRole.order(:name), :id, :name,   include_blank: true %>
+</p>
+
+<p>
+   <%= form.label :Profile %>
+<%= form.file_field :avatar ,onchange: "readURL(this);"%>
+</p>
+ <div>
+ <img id="blah" />
+</div>
+
+
+  <p>
+    <%= form.submit "Signup"%>
+  </p>
+
+  <%end%>
+
+<script type="text/javascript">
+
+function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('#blah')
+                    .attr('src', e.target.result)
+                    .width(150)
+                    .height(150);
+            };
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+</script> 
+<%= link_to '<em class="fa  fa-mail-reply-all" aria-hidden="true"></em>'.html_safe,  users_admins_admins_path, class:"btn btn-primary"  ,title: "Back" %>

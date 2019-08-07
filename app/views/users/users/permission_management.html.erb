@@ -1,0 +1,140 @@
+  <h1>Permission Management</h1>
+<p class="box box-primary"></p>
+
+
+ <%=  form_for :permission,html: { onsubmit: "return myFunction1(this);" }, url: save_permission_users_users_path ,method: :post, local: true do |b| %>
+
+
+<%= b.label :Role %>
+<%= b.collection_select :role, UserRole.all, :id, :name,  :prompt => 'Select',required: true %>
+
+<%= b.label :menu %>
+<%= b.select(:menus, Menu.all.order('created_at ASC').first(3).collect {|m| [m.menu, m.id]},{prompt: "Select"},{onchange: "myFunction(this);"}) %>
+
+
+
+<%= b.label :action %>
+<%= b.select :action, options_for_select([]),:prompt => 'Select' 	%>
+
+<td><%= b.submit "Save" , class:"btn btn-primary"%></td>
+
+<%end%>
+
+
+
+ <table class="table table-hover">
+                  <tr style="background-color: #DDD7D6">
+                    <th>Role</th>
+					<th>Menu</th>
+				<!-- 	<th>Profile</th> -->
+					<th>Actions</th>
+					<th></th>
+
+                  </tr>
+                  <tr>
+                    <%#@contents = [] unless @contents.present?%>
+
+				<% Permission.all.each do |permission|%>
+          <%#binding.pry%>
+          <% unless permission.eql?(nil) %>
+          <td><%= UserRole.find_by(id:permission.user_role_id).name%></td>
+          <td><%= Menu.find_by(id:permission.menu_id).menu%></td>
+          <td><%= permission.permission%></td>
+           
+          
+          
+<td><%= link_to '<em class="fa fa-trash" aria-hidden="true"></em>'.html_safe,  permission_destroy_users_users_path(id: permission.id), class:"btn btn-danger"  ,title: "Delete" %> </td>
+          
+
+					</tr>
+                
+
+
+<%end%>
+<%end%>
+
+
+</table>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.min.js"></script>
+
+<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
+
+
+
+
+<script type="text/javascript">
+  $('#session_menu_id').change(myFunction);
+ function myFunction(input){
+// debugger;
+ var menu_id = input.value;
+ code = {code: menu_id}
+   
+     if(menu_id == "")
+     {
+       $('#permission_action').empty();
+     }
+     else
+     {
+ $.ajax(
+   {
+     type: 'POST',
+     url: "/admins/admins/return_actions",
+     data: code,
+     success: function(result){
+       var new_options = result;
+       var menuaction = $('#permission_action').empty();
+   $.each(new_options, function(key,values) {
+     $.each(values, function(index,value) {
+     menuaction.append($("<option></option>").attr("value", value).text(value));
+   });
+   });
+
+  // alert ("ffcng");
+   }
+});
+}
+ }
+</script>
+
+
+
+<script type="text/javascript">
+// debugger;
+function myFunction1(input){
+  debugger;
+ var role = input.elements[2].value;
+ var menu = input.elements[3].value;
+ var action = input.elements[4].value;
+ actions = {actions: action}
+ menus = {menus: menu}
+ roles = {roles: role,actions: action}
+
+       if((role == "") || (menu == "") || (action == ""))
+     {
+    alert("plz select all the filed");
+    return false;
+  }
+  else
+  {
+    $.ajax({
+  url: '/users/users/check_action',
+  method: 'POST',
+  data: roles,
+    success: function(response){
+    if(response && response.message=='ERROR'){
+        alert("Permission already exists");
+    }
+}
+});
+        return false;
+
+  }
+}
+
+  
+</script>

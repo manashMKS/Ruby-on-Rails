@@ -1,0 +1,25 @@
+<h1>User Login</h1>
+
+
+<%= flash[:notice] %>
+&nbsp;
+
+
+<%=  form_for :session, url: otp_user_users_sessions_path(id: @user.id) ,method: :post, local: true do |b| %>
+   
+   <%= hidden_field_tag  @user = User.find_by(email: params[:session][:email	])  %>
+<br>
+Your otp is sent to your registered mail <b><%=@user.email%></b>
+<p>
+    <%= b.label :OTP %><br>
+    <%= b.text_field :otp %>
+  </p>
+ 
+ 
+  
+
+  <p>
+    <%= b.submit :Submit %>
+  </p>
+
+  <% end %>

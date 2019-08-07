@@ -1,0 +1,53 @@
+
+
+
+<h1>Static Content Management</h1>
+<%= link_to '<em class="btn fa fa-plus-circle" aria-hidden="true"></em><span style="font-size:15px">Add New Content</style>'.html_safe,  static_content_admins_admins_path, class:"btn btn-sm btn-primary" ,title: "Add Content", style: "float:right;margin-top:-50px" %>
+<p class="box box-primary"></p>
+
+
+
+ 
+
+<div class="card-body table-responsive p-0">
+                <table class="table table-hover">
+                  <tr style="background-color: #DDD7D6">
+                    <th>Title</th>
+					<th>Content</th>
+				<!-- 	<th>Profile</th> -->
+					<th>Start Date</th>
+					<th>End Date</th>
+					<th>Action</th>
+
+					
+                  </tr>
+                  <tr>
+                    <%#@contents = [] unless @contents.present?%>
+
+					<% @contents.each do |content|%>
+					<% unless content.eql?(nil) %>
+					<td><%= content.title %></td>
+					<td><%= content.latest_content.html_safe%></td>
+					<td><%= content.start_date%></td>
+					<td><%= content.end_date%></td>
+
+<td><%= link_to '<em class="fa  fa-edit" aria-hidden="true"></em>'.html_safe,  content_edit_admins_admins_path(id: content.id), class:"btn btn-primary"  ,title: "Edit" %> 
+				
+
+
+<%= link_to '<em class="fa fa-trash" aria-hidden="true"></em>'.html_safe,  content_destroy_admins_admins_path(id: content.id), class:"btn btn-danger"  ,title: "Delete" %></td> 
+                
+
+
+
+					</tr>
+
+
+<%end%>
+<%end%>
+
+
+</table>
+<%= will_paginate @contents %>
+
+</div>

@@ -1,0 +1,32 @@
+<h1>Profile</h1>
+
+
+<div>
+
+<p>
+  <strong>Name:</strong>
+  <%= @user_view&.name %>
+</p>
+ 
+ <p>
+	<strong>Email:</strong>
+	<%=@user_view&.email%>
+</p>
+
+<p>
+	<strong>Phone:</strong>
+	<%=@user_view&.phone%>
+</p>
+
+<p>
+	<strong>Role:</strong>
+	<%=@user_view&.user_role&.name%>
+</p>
+
+<p>
+  <strong>Image:</strong>
+ 
+   <%= image_tag @user_view&.avatar&.url %>
+</p>
+
+<%= link_to '<em class="fa  fa-mail-reply-all" aria-hidden="true"></em>'.html_safe,  users_users_users_path, class:"btn btn-primary"  ,title: "Back" %>

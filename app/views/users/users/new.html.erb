@@ -1,0 +1,265 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+ 
+
+ <center>
+
+<h1>User Signup</h1>
+
+<%= flash[:notice] %>
+
+<%= form_with scope: :user, url: users_users_path,:html=>{id: "first"},local: true  do |form| %>
+
+<% if @user.errors.any? %>
+  <div id="error_explanation">
+    
+      The form contains <%= pluralize(@user.errors.count, "error") %>.
+    </div>
+    <ul>
+    <% @user.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+    </ul>
+  </div>
+<% end %>
+
+
+
+ <p>
+    <%= form.label :Name %><br>
+    <%= form.text_field :name ,placeholder: 'Your name here' %>
+  </p>
+ 
+ <p>
+    <%= form.label :Email %><br>
+    <%= form.email_field  :email ,placeholder: 'Your email here' , onchange: "myFunction(this);"%>
+ 
+  </p>
+ 
+<p>
+    <%= form.label :Phone %><br>
+    <%= form.text_field  :phone , placeholder: 'Your phone here'%>
+ 
+  </p>
+ 
+
+<p>
+   <%= form.label :password %><br>
+<%= form.password_field :password %>
+</p>
+
+<p>
+   <%= form.label :Confirm_password %><br>
+<%= form.password_field :password_confirmation %>
+</p>
+
+
+
+<label>Profile</label>
+<p>
+ <%= form.file_field :avatar ,onchange: "readURL(this);"%>
+ <div>
+ <img id="blah" />
+</div>
+</p>
+
+  <p>
+    <%= form.submit "Signup"%>
+  </p>
+
+  <a href="/auth/google_oauth2" , class="google"><i class="fas fa-envelope" aria-hidden="true" style="font-size:40px"></i></a>
+ 
+<a href="/auth/github" , class="git"><i class="fab fa-github" aria-hidden="true" style="font-size:40px"></i></a>
+
+<a href="/auth/facebook" , class="facebook" ><i class="fab fa-facebook-square" style="font-size:40px"></i></a>
+
+
+  <% end %>
+
+</center>
+<script type="text/javascript">
+
+function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('#blah')
+                    .attr('src', e.target.result)
+                    .width(150)
+                    .height(150);
+            };
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+</script> 
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.min.js"></script>
+
+<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
+<script>
+    
+<%= render "userval.js" %>
+
+</script>
+
+<script type="text/javascript">
+  
+  jQuery.validator.addMethod("nameRegex", function(value, element)
+          {
+              return this.optional(element) || /^[a-z\ \s]+$/i.test(value);
+          }, "Name must contain only letters & space");
+
+   
+  jQuery.validator.addMethod("pwdRegex", function(value, element)
+          {
+              return this.optional(element) || /^(?=.*\d)(?=.*([a-z]|[A-Z]))([\x20-\x7E]){8,40}$/i
+.test(value);
+          }, "password must contain any special character,number uppercase and lower case");
+
+$(document).ready(function(){
+$("#user1").validate({
+  rules:{
+           "user[name]":
+           {
+                // unique: true,
+                nameRegex: true,
+                required: true ,
+                 rangelength: [4,50]
+           },
+
+           "user[email]":
+                {
+                  required: true,
+                  email: true
+                },
+
+           "user[password]":
+           {
+
+                 rangelength: [4,19],
+                 pwdRegex: true
+           }     
+            
+  },
+  messages:{
+           "user[name]":
+           {
+               // regex: "Helolllllo",
+               required:"please enter name first",
+               rangelength:"name should be 4 to 50 characters",
+           },
+
+           "user[email]":
+          {
+            required: "cant be blank"
+          },
+
+           "user[password]":
+           {
+            rangelength:"is too short(minimum 4 characters)"
+
+           }
+// var $ = jQuery;
+// $(document).ready(function(){
+
+//   $("#first").validate({
+//          errorPlacement: function (error, element) {
+//    error.insertAfter(element);
+// },
+
+//   rules:{
+//            "user[name]":
+//            {
+//                 // unique: true,
+//                 nameRegex: true,
+//                 required: true ,
+//                  rangelength: [4,50]
+//            },
+
+//            "user[email]":
+//                 {
+//                   required: true,
+//                   email: true
+//                 },
+
+//            "user[password]":
+//            {
+
+//                  rangelength: [4,19],
+//                  pwdRegex: true
+//            }     
+            
+//   },
+//   messages:{
+//            "user[name]":
+//            {
+//                // regex: "Helolllllo",
+//                required:"please enter name first",
+//                rangelength:"name should be 4 to 50 characters",
+//            },
+
+//            "user[email]":
+//           {
+//             required: "cant be blank"
+//           },
+
+//            "user[password]":
+//            {
+//             rangelength:"is too short(minimum 4 characters)"
+
+//            }
+
+      
+//   },
+
+//    });
+//  });
+// </script> 
+
+
+
+<script type="text/javascript">
+/////////////////////////////////////////////
+$('#user_email').change(function(){
+  // alert(this.value);
+  
+  $.ajax({
+  url: '/users/users/check_email',
+  method: 'POST',
+  data: {email: this.value},
+    success: function(response){
+    if(response && response.message=='ERROR'){
+        alert("This Email already taken")
+    }
+}
+});
+
+});
+////////////////////////////////////////////
+//   $('#user_email').change(myFunction);
+//  function myFunction(input){
+// // debugger;
+//  var email = input.value;
+//  email = {email: email}
+
+// $.ajax({
+//   url: '/users/users/check_email',
+//   method: 'POST',
+//   data: email,
+// success: function(response){
+//     if(response && response.message=='ERROR'){
+//         alret("This Email already taken")
+//     }
+// }
+// });
+
+// }
+</script>
+
+

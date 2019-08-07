@@ -1,0 +1,54 @@
+
+
+
+<h1>Profile</h1>
+
+
+<div>
+
+<p>
+  <strong>Name:</strong>
+  <%= @user&.name %>
+</p>
+ 
+ <p>
+	<strong>Email:</strong>
+	<%=@user&.email%>
+</p>
+
+<p>
+	<strong>Phone:</strong>
+	<%=@user&.phone%>
+</p>
+
+
+<p>
+  <strong>Image:</strong>
+ 
+   <%= image_tag @user&.avatar&.url %>
+</p>
+<table class="table table-hover">
+                  <tr style="background-color: #DDD7D6">
+                    <th>Title</th>
+					<th>Content</th>
+			
+					
+                  </tr>
+                  <tr>
+                    <%@contentss = [] unless @contentss.present?%>
+
+					<% @contentss.each do |content|%>
+					<td><%= content.title %></td>
+					<td><%= content.latest_content.html_safe%></td>
+		
+					</tr>
+                
+
+
+<%end%>
+
+
+</table>
+
+</div>
+ <%= link_to "Log out", users_sessions_path(@current_user) , method: :delete %>
